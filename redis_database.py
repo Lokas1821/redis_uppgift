@@ -14,16 +14,21 @@ redis_connection = redis.Redis(
 response = requests.get("https://dummyjson.com/quotes")
 list_quote = response.text
 quote = json.loads(response.text)
-
+redis_connection.ping()
+print(quote['quotes'][0]['author'])
+redis_connection.json().set('quotes','$',response.json())
 '''
 Below we can move the data to the redis database, but we cannot find a way to navigate the data, like we can
 in the commented out section below. I think it might be the wrong format.  
 '''
-for k, v in quote:
-    my_key = k
-    my_value = v
-    redis_connection.set(my_key, my_value)
-
+#my_quotes = quote['quotes']
+#dict.fromkeys(my_quotes)
+#print(type(my_quotes)){
+#redis_connection.mset(my_quotes)
+#for k, v in my_quotes:
+#    my_key = k
+#    my_value = v
+#    redis_connection.mset(my_key, my_value)
 
 '''
 # navigate quotes in python
