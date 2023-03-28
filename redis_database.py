@@ -1,3 +1,4 @@
+"""
 import redis
 import json
 import requests
@@ -16,7 +17,9 @@ list_quote = response.text
 quote = json.loads(response.text)
 redis_connection.ping()
 print(quote['quotes'][0]['author'])
-redis_connection.json().set('quotes','$',response.json())
+redis_connection.jsonset('quotes', '.', json.dumps(quote))
+"""
+
 '''
 Below we can move the data to the redis database, but we cannot find a way to navigate the data, like we can
 in the commented out section below. I think it might be the wrong format.  
