@@ -26,24 +26,25 @@ def add_quote(quote, author):
     quotes['quotes'].append(new_quote)
     redis_connection.set('quotes', json.dumps(quotes))
 
-store_quotes()
+if __name__ == '__main__':
+    store_quotes()
 
-while True:
-    print("1. Get a random quote")
-    print("2. Add a new quote")
-    print("3. Exit")
-    choice = input("Enter your choice: ")
+    while True:
+        print("1. Get a random quote")
+        print("2. Add a new quote")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
 
-    if choice == '1':
-        quote = get_quote()
-        print(f'"{quote["quote"]}" - {quote["author"]}\n')
-    elif choice == '2':
-        quote = input("Enter the quote: ")
-        author = input("Enter the author: ")
-        add_quote(quote, author)
-        print("Quote added successfully!\n")
-    elif choice == '3':
-        print("Exiting program...")
-        break
-    else:
-        print("Invalid choice. Please try again.\n")
+        if choice == '1':
+            quote = get_quote()
+            print(f'"{quote["quote"]}" - {quote["author"]}\n')
+        elif choice == '2':
+            quote = input("Enter the quote: ")
+            author = input("Enter the author: ")
+            add_quote(quote, author)
+            print("Quote added successfully!\n")
+        elif choice == '3':
+            print("Exiting program...")
+            break
+        else:
+            print("Invalid choice. Please try again.\n")
